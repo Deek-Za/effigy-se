@@ -4,18 +4,18 @@ SUBSYSTEM_DEF(economy)
 	init_order = INIT_ORDER_ECONOMY
 	runlevels = RUNLEVEL_GAME
 	///How many paychecks should players start out the round with?
-	var/roundstart_paychecks = 4 // EFFIGY EDIT CHANGE
+	var/roundstart_paychecks = 4 // EffigyEdit Change
 	///How many credits does the in-game economy have in circulation at round start? Divided up by 6 of the 7 department budgets evenly, where cargo starts with nothing.
-	var/budget_pool = 40000 // EFFIGY EDIT CHANGE
+	var/budget_pool = 40000 // EffigyEdit Change
 	var/list/department_accounts = list(ACCOUNT_CIV = ACCOUNT_CIV_NAME,
 										ACCOUNT_ENG = ACCOUNT_ENG_NAME,
 										ACCOUNT_SCI = ACCOUNT_SCI_NAME,
 										ACCOUNT_MED = ACCOUNT_MED_NAME,
 										ACCOUNT_SRV = ACCOUNT_SRV_NAME,
 										ACCOUNT_CAR = ACCOUNT_CAR_NAME,
-										ACCOUNT_CMD = ACCOUNT_CMD_NAME, // EFFIGY EDIT ADD (#3 Ported from Skyrat)
+										ACCOUNT_CMD = ACCOUNT_CMD_NAME, // EffigyEdit Add (#3 Ported from Skyrat)
 										ACCOUNT_SEC = ACCOUNT_SEC_NAME)
-	var/list/generated_accounts = list()
+	var/list/departmental_accounts = list()
 	/**
 	 * Enables extra money charges for things that normally would be free, such as sleepers/cryo/beepsky.
 	 * Take care when enabling, as players will NOT respond well if the economy is set up for low cash flows.
@@ -83,7 +83,7 @@ SUBSYSTEM_DEF(economy)
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/economy/Recover()
-	generated_accounts = SSeconomy.generated_accounts
+	departmental_accounts = SSeconomy.departmental_accounts
 	bank_accounts_by_id = SSeconomy.bank_accounts_by_id
 	dep_cards = SSeconomy.dep_cards
 
@@ -145,7 +145,7 @@ SUBSYSTEM_DEF(economy)
  * Handy proc for obtaining a department's bank account, given the department ID, AKA the define assigned for what department they're under.
  */
 /datum/controller/subsystem/economy/proc/get_dep_account(dep_id)
-	for(var/datum/bank_account/department/D in generated_accounts)
+	for(var/datum/bank_account/department/D in departmental_accounts)
 		if(D.department_id == dep_id)
 			return D
 

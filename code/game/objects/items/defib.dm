@@ -620,10 +620,10 @@
 						fail_reason = "Patient's brain is missing. Further attempts futile."
 					if (DEFIB_FAIL_BLACKLISTED)
 						fail_reason = "Patient has been blacklisted from revival. Further attempts futile."
-					// EFFIGY EDIT ADD START - DNR
+					// EffigyEdit Add -  - DNR
 					if (DEFIB_FAIL_DNR)
 						fail_reason = "Patient has been flagged as Do Not Resuscitate. Further attempts futile."
-					// EFFIGY EDIT ADD END - DNR
+					// EffigyEdit Add End - DNR
 
 				if(fail_reason)
 					user.visible_message(span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - [fail_reason]"))
@@ -652,7 +652,10 @@
 					H.emote("gasp")
 					H.set_jitter_if_lower(200 SECONDS)
 					SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK)
-					user.add_mood_event("saved_life", /datum/mood_event/saved_life)
+					if(HAS_TRAIT(user, TRAIT_MORBID))
+						user.add_mood_event("morbid_saved_life", /datum/mood_event/morbid_saved_life)
+					else
+						user.add_mood_event("saved_life", /datum/mood_event/saved_life)
 					log_combat(user, H, "revived", defib)
 				do_success()
 				return

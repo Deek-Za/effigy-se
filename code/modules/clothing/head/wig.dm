@@ -10,7 +10,7 @@
 	color = "#000000"
 	var/hairstyle = "Very Long Hair"
 	var/adjustablecolor = TRUE //can color be changed manually?
-	flags_inv = HIDEHAIR | SHOWSPRITEEARS // EFFIGY EDIT ADD
+	flags_inv = HIDEHAIR | SHOWSPRITEEARS // EffigyEdit Add
 
 /obj/item/clothing/head/wig/Initialize(mapload)
 	. = ..()
@@ -71,6 +71,10 @@
 		if((head.flags_inv & HIDEHAIR) && !istype(head, /obj/item/clothing/head/wig))
 			to_chat(user, span_warning("You can't get a good look at [target.p_their()] hair!"))
 			return
+	var/obj/item/bodypart/head/noggin = target.get_bodypart(BODY_ZONE_HEAD)
+	if(!noggin)
+		to_chat(user, span_warning("[target.p_they(TRUE)] have no head!"))
+		return
 
 	var/selected_hairstyle = null
 	var/selected_hairstyle_color = null
@@ -78,7 +82,7 @@
 		var/obj/item/clothing/head/wig/wig = target.head
 		selected_hairstyle = wig.hairstyle
 		selected_hairstyle_color = wig.color
-	else if((HAIR in target.dna.species.species_traits) && target.hairstyle != "Bald")
+	else if((noggin.head_flags & HEAD_HAIR) && target.hairstyle != "Bald")
 		selected_hairstyle = target.hairstyle
 		selected_hairstyle_color = "[target.hair_color]"
 

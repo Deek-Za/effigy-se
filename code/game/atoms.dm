@@ -245,7 +245,7 @@
 	flags_1 |= INITIALIZED_1
 
 	if(loc)
-		SEND_SIGNAL(loc, COMSIG_ATOM_INITIALIZED_ON, src) /// Sends a signal that the new atom `src`, has been created at `loc`
+		SEND_SIGNAL(loc, COMSIG_ATOM_INITIALIZED_ON, src, mapload) /// Sends a signal that the new atom `src`, has been created at `loc`
 
 	SET_PLANE_IMPLICIT(src, plane)
 
@@ -623,6 +623,10 @@
 /atom/proc/HasProximity(atom/movable/proximity_check_mob as mob|obj)
 	return
 
+/// Sets the wire datum of an atom
+/atom/proc/set_wires(datum/wires/new_wires)
+	wires = new_wires
+
 /**
  * React to an EMP of the given severity
  *
@@ -715,14 +719,14 @@
 
 	. += get_name_chaser(user)
 	if(desc)
-		. += "<span class='info'>[desc]" // EFFIGY EDIT CHANGE
+		. += "<span class='info'>[desc]" // EffigyEdit Change
 
 	if(custom_materials)
 		var/list/materials_list = list()
 		for(var/custom_material in custom_materials)
 			var/datum/material/current_material = GET_MATERIAL_REF(custom_material)
 			materials_list += "[current_material.name]"
-		. += span_info("<u>It is made out of [english_list(materials_list)]</u>.") // EFFIGY EDIT CHANGE
+		. += span_info("<u>It is made out of [english_list(materials_list)]</u>.") // EffigyEdit Change
 
 	if(reagents)
 		var/user_sees_reagents = user.can_see_reagents()
@@ -739,7 +743,7 @@
 						. += span_notice("The solution's pH is [round(reagents.ph, 0.01)] and has a temperature of [reagents.chem_temp]K.")
 
 				else
-					. += span_info("It contains:<br>Nothing.") // EFFIGY EDIT CHANGE
+					. += span_info("It contains:<br>Nothing.") // EffigyEdit Change
 			else if(reagents.flags & AMOUNT_VISIBLE)
 				if(reagents.total_volume)
 					. += span_notice("It has [reagents.total_volume] unit\s left.")
@@ -1143,6 +1147,8 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	dir = newdir
 	SEND_SIGNAL(src, COMSIG_ATOM_POST_DIR_CHANGE, dir, newdir)
+	if(smoothing_flags & SMOOTH_BORDER_OBJECT)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 /**
  * Called when the atom log's in or out

@@ -1,12 +1,9 @@
-// EFFIGY EDIT CHANGE START (#3 Customization - Ported from Skyrat)
+// EffigyEdit Change -  (#3 Customization - Ported from Skyrat)
 /datum/species/fly
 	name = "Flyperson"
 	plural_form = "Flypeople"
 	id = SPECIES_FLYPERSON
-	species_traits = list(
-		HAIR,
-		FACEHAIR
-	)
+	species_traits = list()
 	inherent_traits = list(
 		TRAIT_CAN_USE_FLIGHT_POTION,
 		TRAIT_TACKLING_FRAIL_ATTACKER,
@@ -38,7 +35,7 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/fly,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/fly,
 	)
-// EFFIGY EDIT CHANGE END (#3 Customization - Ported from Skyrat)
+// EffigyEdit Change End (#3 Customization - Ported from Skyrat)
 
 /datum/species/fly/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, seconds_per_tick, times_fired)
 	if(chem.type == /datum/reagent/toxin/pestkiller)

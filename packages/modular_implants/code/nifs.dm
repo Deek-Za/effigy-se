@@ -138,7 +138,6 @@
 	linked_mob = insertee
 	stored_ckey = linked_mob.ckey
 
-	loc = insertee // This needs to be done, otherwise TGUI will not pull up.
 	START_PROCESSING(SSobj, src)
 
 	if(!is_calibrated)
@@ -243,7 +242,7 @@
 	if(!linked_mob || !linked_mob.nutrition)
 		return FALSE
 
-	if(HAS_TRAIT(linked_mob, TRAIT_NOHUNGER)) //Hemophages HATE this one simple check.
+	if(HAS_TRAIT(linked_mob, TRAIT_NOHUNGER))
 		return FALSE
 
 	return linked_mob.nutrition >= minimum_nutrition

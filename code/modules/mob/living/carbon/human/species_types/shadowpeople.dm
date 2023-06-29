@@ -5,9 +5,7 @@
 	id = SPECIES_SHADOW
 	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/shadow
-	species_traits = list(
-		NOEYESPRITES,
-	)
+	species_traits = list()
 	inherent_traits = list(
 		TRAIT_NOBREATH,
 		TRAIT_RADIMMUNE,
@@ -23,7 +21,7 @@
 	mutantlungs = null
 
 	species_language_holder = /datum/language_holder/shadowpeople
-	examine_limb_id = SPECIES_SHADOW // EFFIGY EDIT ADD
+	examine_limb_id = SPECIES_SHADOW // EffigyEdit Add
 	bodypart_overrides = list(
 		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/shadow,
 		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/shadow,

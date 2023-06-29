@@ -28,7 +28,7 @@
 /obj/structure/barricade/attackby(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_WELDER && !user.combat_mode && bar_material == METAL)
 		if(atom_integrity < max_integrity)
-			if(!I.tool_start_check(user, amount=0))
+			if(!I.tool_start_check(user, amount=1))
 				return
 
 			to_chat(user, span_notice("You begin repairing [src]..."))
@@ -129,7 +129,7 @@
 /obj/structure/barricade/sandbags/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/climbable)
-	AddElement(/datum/element/liquids_height, 20) // EFFIGY EDIT ADD
+	AddElement(/datum/element/liquids_height, 20) // EffigyEdit Add
 
 /obj/structure/barricade/security
 	name = "security barrier"

@@ -277,10 +277,10 @@
 		stack_trace("We tried to check a gas_mixture that doesn't exist for its firetype, what are you DOING")
 		return
 
-	var/pressure = environment?.return_pressure() // EFFIGY EDIT ADD
+	var/pressure = environment?.return_pressure() // EffigyEdit Add
 	if(environment.temperature >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
 		return FIRELOCK_ALARM_TYPE_HOT
-	if(environment.temperature <= BODYTEMP_COLD_DAMAGE_LIMIT || pressure > WARNING_HIGH_PRESSURE || pressure < WARNING_LOW_PRESSURE) // EFFIGY EDIT CHANGE (Add pressure)
+	if(environment.temperature <= BODYTEMP_COLD_DAMAGE_LIMIT || pressure > WARNING_HIGH_PRESSURE || pressure < WARNING_LOW_PRESSURE) // EffigyEdit Change (Add pressure)
 		return FIRELOCK_ALARM_TYPE_COLD
 	return
 
@@ -519,7 +519,7 @@
 	return
 
 /obj/machinery/door/firedoor/try_to_weld_secondary(obj/item/weldingtool/W, mob/user)
-	if(!W.tool_start_check(user, amount=0))
+	if(!W.tool_start_check(user, amount=1))
 		return
 	user.visible_message(span_notice("[user] starts [welded ? "unwelding" : "welding"] [src]."), span_notice("You start welding [src]."))
 	if(W.use_tool(src, user, DEFAULT_STEP_TIME, volume=50))
@@ -860,7 +860,7 @@
 				user.visible_message(span_notice("[user] begins cutting apart [src]'s frame..."), \
 					span_notice("You begin slicing [src] apart..."))
 
-				if(attacking_object.use_tool(src, user, DEFAULT_STEP_TIME, volume=50, amount=1))
+				if(attacking_object.use_tool(src, user, DEFAULT_STEP_TIME, volume=50))
 					if(constructionStep != CONSTRUCTION_NO_CIRCUIT)
 						return
 					user.visible_message(span_notice("[user] cuts apart [src]!"), \

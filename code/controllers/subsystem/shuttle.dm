@@ -198,8 +198,8 @@ SUBSYSTEM_DEF(shuttle)
 		if(!thing)
 			mobile_docking_ports.Remove(thing)
 			continue
-		var/obj/docking_port/mobile/P = thing
-		P.check()
+		var/obj/docking_port/mobile/port = thing
+		port.check()
 	for(var/thing in transit_docking_ports)
 		var/obj/docking_port/stationary/transit/T = thing
 		if(!T.owner)
@@ -427,7 +427,7 @@ SUBSYSTEM_DEF(shuttle)
 		if(SEC_LEVEL_BLUE)
 			if(emergency.timeLeft(1) < emergency_call_time * 0.5)
 				return
-		// EFFIGY EDIT ADD START (Alert Levels)
+		// EffigyEdit Add -  (Alert Levels)
 		if(SEC_LEVEL_ORANGE)
 			if(emergency.timeLeft(1) < emergency_call_time * 0.4)
 				return
@@ -437,7 +437,7 @@ SUBSYSTEM_DEF(shuttle)
 		if(SEC_LEVEL_AMBER)
 			if(emergency.timeLeft(1) < emergency_call_time * 0.4)
 				return
-		// EFFIGY EDIT ADD END (Alert Levels)
+		// EffigyEdit Add End (Alert Levels)
 		else
 			if(emergency.timeLeft(1) < emergency_call_time * 0.25)
 				return

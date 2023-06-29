@@ -172,6 +172,8 @@
 	return adjacent_turfs
 
 /atom/proc/air_update_turf(update = FALSE, remove = FALSE)
+	if(!SSair.initialized) // I'm sorry for polutting user code, I'll do 10 hail giacom's
+		return
 	var/turf/local_turf = get_turf(loc)
 	if(!local_turf)
 		return
@@ -187,13 +189,15 @@
  * * remove - Are you removing an active turf (Read wall), or adding one
 */
 /turf/air_update_turf(update = FALSE, remove = FALSE)
+	if(!SSair.initialized) // I'm sorry for polutting user code, I'll do 10 hail giacom's
+		return
 	if(update)
 		immediate_calculate_adjacent_turfs()
 	if(remove)
 		SSair.remove_from_active(src)
 	else
 		SSair.add_to_active(src)
-	liquid_update_turf() // EFFIGY EDIT ADD
+	liquid_update_turf() // EffigyEdit Add
 
 /atom/movable/proc/move_update_air(turf/target_turf)
 	if(isturf(target_turf))

@@ -25,6 +25,8 @@ GLOBAL_PROTECT(admin_verbs_default)
 	/client/proc/revokebunkerbypass, // EFFIGY EDIT ADD
 	/client/proc/remove_liquid, // EFFIGY EDIT ADD
 	/client/proc/find_effigy_id, // EFFIGY EDIT ADD
+	/client/proc/link_effigy_id, // EFFIGY EDIT ADD
+	/client/proc/effigy_whitelist, // EFFIGY EDIT ADD
 	)
 GLOBAL_LIST_INIT(admin_verbs_admin, world.AVerbsAdmin())
 GLOBAL_PROTECT(admin_verbs_admin)
@@ -49,6 +51,7 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/datum/admins/proc/trophy_manager,
 	/datum/admins/proc/view_all_circuits,
 	/datum/verbs/menu/Admin/verb/playerpanel, /* It isn't /datum/admin but it fits no less */
+	/datum/admins/proc/change_shuttle_events, //allows us to change the shuttle events
 // Client procs
 	/client/proc/admin_call_shuttle, /*allows us to call the emergency shuttle*/
 	/client/proc/admin_cancel_shuttle, /*allows us to cancel the emergency shuttle, sending it back to centcom*/
@@ -132,11 +135,11 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/summon_ert,
 	/client/proc/toggle_nuke,
 	/client/proc/toggle_random_events,
-	/client/proc/admin_change_title_screen, // EFFIGY EDIT ADD - SPLASH
-	/client/proc/change_title_screen_notice, // EFFIGY EDIT ADD - SPLASH
-	/client/proc/change_title_screen_html, // EFFIGY EDIT ADD - SPLASH
-	/client/proc/spawn_liquid, // EFFIGY EDIT ADD - LIQUID
-	/client/proc/remove_liquid, // EFFIGY EDIT ADD - LIQUID
+	/client/proc/admin_change_title_screen, // EffigyEdit Add - SPLASH
+	/client/proc/change_title_screen_notice, // EffigyEdit Add - SPLASH
+	/client/proc/change_title_screen_html, // EffigyEdit Add - SPLASH
+	/client/proc/spawn_liquid, // EffigyEdit Add - LIQUID
+	/client/proc/remove_liquid, // EffigyEdit Add - LIQUID
 	))
 GLOBAL_PROTECT(admin_verbs_fun)
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(/datum/admins/proc/spawn_atom, /datum/admins/proc/podspawn_atom, /datum/admins/proc/spawn_cargo, /datum/admins/proc/spawn_objasmob, /client/proc/respawn_character, /datum/admins/proc/beaker_panel))
@@ -237,7 +240,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/validate_cards,
 	/client/proc/validate_puzzgrids,
 	/client/proc/view_runtimes,
-	// EFFIGY EDIT ADD START
+	// EffigyEdit Add -
 	/client/proc/reload_interactions, // Interactions
 	/client/proc/test_area_spawner,	// Automapper
 	/client/proc/toggle_liquid_debug, // Customization

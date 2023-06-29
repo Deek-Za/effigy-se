@@ -169,7 +169,7 @@
 	var/cooling_temperature = 2
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED|REAGENT_CLEANS
 	default_container = /obj/item/reagent_containers/cup/glass/waterbottle
-	evaporates = TRUE // EFFIGY EDIT ADD
+	evaporates = TRUE // EffigyEdit Add
 
 /datum/glass_style/shot_glass/water
 	required_drink_type = /datum/reagent/water
@@ -551,8 +551,9 @@
 		affected_human.facial_hairstyle = "Shaved"
 		affected_human.facial_hair_color = "#000000"
 		affected_human.hair_color = "#000000"
-		if(!(HAIR in affected_human.dna.species.species_traits)) //No hair? No problem!
-			affected_human.dna.species.species_traits += HAIR
+		var/obj/item/bodypart/head/head = affected_human.get_bodypart(BODY_ZONE_HEAD)
+		if(head)
+			head.head_flags |= HEAD_HAIR //No hair? No problem!
 		if(affected_human.dna.species.use_skintones)
 			affected_human.skin_tone = "orange"
 		else if(MUTCOLORS in affected_human.dna.species.species_traits) //Aliens with custom colors simply get turned orange
@@ -611,7 +612,7 @@
 	if(current_cycle >= cycles_to_turn)
 		var/datum/species/species_type = race
 		//affected_mob.set_species(species_type) //ORIGINAL
-		affected_mob.set_species(species_type, TRUE, FALSE, null, null, null, null, TRUE) // EFFIGY EDIT CHANGE (Customization)
+		affected_mob.set_species(species_type, TRUE, FALSE, null, null, null, null, TRUE) // EffigyEdit Change (Customization)
 		holder.del_reagent(type)
 		to_chat(affected_mob, span_warning("You've become \a [lowertext(initial(species_type.name))]!"))
 		return
@@ -676,13 +677,13 @@
 		to_chat(affected_mob, span_warning("Your jelly shifts and morphs, turning you into another subspecies!"))
 		var/species_type = pick(subtypesof(/datum/species/jelly))
 		//affected_mob.set_species(species_type) //ORIGINAL
-		affected_mob.set_species(species_type, TRUE, FALSE, null, null, null, null, TRUE) // EFFIGY EDIT CHANGE (Customization)
+		affected_mob.set_species(species_type, TRUE, FALSE, null, null, null, null, TRUE) // EffigyEdit Change (Customization)
 		holder.del_reagent(type)
 		return TRUE
 	if(current_cycle >= cycles_to_turn) //overwrite since we want subtypes of jelly
 		var/datum/species/species_type = pick(subtypesof(race))
 		//affected_mob.set_species(species_type) //ORIGINAL
-		affected_mob.set_species(species_type, TRUE, FALSE, null, null, null, null, TRUE) // EFFIGY EDIT CHANGE (Customization)
+		affected_mob.set_species(species_type, TRUE, FALSE, null, null, null, null, TRUE) // EffigyEdit Change (Customization)
 		holder.del_reagent(type)
 		to_chat(affected_mob, span_warning("You've become \a [initial(species_type.name)]!"))
 		return TRUE
@@ -2118,12 +2119,10 @@
 		var/mob/living/carbon/human/human_mob = affected_mob
 		if(creation_purity == 1 && human_mob.has_quirk(/datum/quirk/item_quirk/bald))
 			human_mob.remove_quirk(/datum/quirk/item_quirk/bald)
-		var/datum/species/species_datum = human_mob.dna?.species
-		if(!species_datum)
+		var/obj/item/bodypart/head/head = human_mob.get_bodypart(BODY_ZONE_HEAD)
+		if(!head || (head.head_flags & HEAD_HAIR))
 			return
-		if(species_datum.species_traits.Find(HAIR))
-			return
-		species_datum.species_traits |= HAIR
+		head.head_flags |= HEAD_HAIR
 		var/message
 		if(HAS_TRAIT(affected_mob, TRAIT_BALD))
 			message = span_warning("You feel your scalp mutate, but you are still hopelessly bald.")
@@ -2419,7 +2418,7 @@
 	if(target.mind)
 		var/datum/antagonist/changeling/changeling = target.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
-			changeling.adjust_chemicals(-4 * REM * seconds_per_tick) // EFFIGY EDIT CHANGE (was -2)
+			changeling.adjust_chemicals(-4 * REM * seconds_per_tick) // EffigyEdit Change (was -2)
 	return ..()
 
 /datum/reagent/pax/peaceborg

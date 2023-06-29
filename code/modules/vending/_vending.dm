@@ -206,7 +206,7 @@
 		circuit = null
 		build_inv = TRUE
 	. = ..()
-	wires = new /datum/wires/vending(src)
+	set_wires(new /datum/wires/vending(src))
 
 	if(SStts.tts_enabled)
 		var/static/vendor_voice_by_type = list()
@@ -1075,7 +1075,7 @@
 					sec_radio = new (src)
 					sec_radio.set_listening(FALSE)
 				sec_radio.set_frequency(FREQ_SECURITY)
-				sec_radio.talk_into(src, "SECURITY ALERT: [usr] recorded attempting to purchase [R.name] in [get_area(src)]. Please watch for substance abuse.", FREQ_SECURITY) // EFFIGY EDIT CHANGE
+				sec_radio.talk_into(src, "SECURITY ALERT: [usr] recorded attempting to purchase [R.name] in [get_area(src)]. Please watch for substance abuse.", FREQ_SECURITY) // EffigyEdit Change
 				GLOB.narcd_underages += usr
 			flick(icon_deny,src)
 			vend_ready = TRUE

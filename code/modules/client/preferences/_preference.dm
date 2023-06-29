@@ -109,6 +109,10 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// will show the feature as selectable.
 	var/relevant_external_organ = null
 
+	/// If the selected species has this head_flag by default,
+	/// will show the feature as selectable.
+	var/relevant_head_flag = null
+
 /// Called on the saved input when retrieving.
 /// Also called by the value sent from the user through UI. Do not trust it.
 /// Input is the value inside the savefile, output is to tell other code
@@ -199,7 +203,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /// Apply this preference onto the given human.
 /// Must be overriden by subtypes.
 /// Called when the savefile_identifier == PREFERENCE_CHARACTER.
-/datum/preference/proc/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences) // EFFIGY EDIT CHANGE (#3 Customization - Ported from Skyrat)
+/datum/preference/proc/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences) // EffigyEdit Change (#3 Customization - Ported from Skyrat)
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_CALL_PARENT(FALSE)
 	CRASH("`apply_to_human()` was not implemented for [type]!")

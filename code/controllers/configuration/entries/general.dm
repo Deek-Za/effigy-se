@@ -119,7 +119,7 @@
 /datum/config_entry/flag/log_subtle
 
 /// log subtler emotes
-/datum/config_entry/flag/log_subtler // EFFIGY EDIT ADD (#3 Customization - Ported from Skyrat)
+/datum/config_entry/flag/log_subtler // EffigyEdit Add (#3 Customization - Ported from Skyrat)
 
 /// log emotes
 /datum/config_entry/flag/log_emote
@@ -633,6 +633,12 @@
 /datum/config_entry/flag/reopen_roundstart_suicide_roles_command_report
 
 /datum/config_entry/flag/auto_profile
+
+/datum/config_entry/number/drift_dump_threshold
+	default = 4 SECONDS
+
+/datum/config_entry/number/drift_profile_delay
+	default = 15 SECONDS
 
 /datum/config_entry/string/centcom_ban_db // URL for the CentCom Galactic Ban DB API
 

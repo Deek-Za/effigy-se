@@ -107,8 +107,8 @@
 		overlays_standing[cache_index] = null
 
 //used when putting/removing clothes that hide certain mutant body parts to just update those and not update the whole body.
-/mob/living/carbon/human/proc/update_mutant_bodyparts(force_update = FALSE) // EFFIGY EDIT CHANGE (force_update)
-	dna?.species.handle_mutant_bodyparts(src, force_update = force_update) // EFFIGY EDIT CHANGE (force_update)
+/mob/living/carbon/human/proc/update_mutant_bodyparts(force_update = FALSE) // EffigyEdit Change (force_update)
+	dna?.species.handle_mutant_bodyparts(src, force_update = force_update) // EffigyEdit Change (force_update)
 	update_body_parts()
 
 /mob/living/carbon/update_body(is_creating = FALSE)
@@ -382,7 +382,7 @@
 
 	apply_overlay(WOUND_LAYER)
 
-// EFFIGY EDIT REMOVE START (Moved to packages)
+// EffigyEdit Remove -  (Moved to packages)
 /*
 /mob/living/carbon/update_worn_mask()
 	remove_overlay(FACEMASK_LAYER)
@@ -444,11 +444,11 @@
 
 	apply_overlay(HEAD_LAYER)
 */
-// EFFIGY EDIT REMOVE END
+// EffigyEdit Remove End
 
 /mob/living/carbon/update_worn_handcuffs()
 	remove_overlay(HANDCUFF_LAYER)
-	if(handcuffed && !(handcuffed.item_flags & ABSTRACT)) // EFFIGY EDIT CHANGE
+	if(handcuffed && !(handcuffed.item_flags & ABSTRACT)) // EffigyEdit Change
 		var/mutable_appearance/handcuff_overlay = mutable_appearance('icons/mob/simple/mob.dmi', "handcuff1", -HANDCUFF_LAYER)
 		if(handcuffed.blocks_emissive)
 			handcuff_overlay.overlays += emissive_blocker(handcuff_overlay.icon, handcuff_overlay.icon_state, src, alpha = handcuff_overlay.alpha)
@@ -486,7 +486,7 @@
 //Overlays for the worn overlay so you can overlay while you overlay
 //eg: ammo counters, primed grenade flashing, etc.
 //"icon_file" is used automatically for inhands etc. to make sure it gets the right inhand file
-/obj/item/proc/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, mutant_styles = NONE) // EFFIGY EDIT CHANGE
+/obj/item/proc/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, mutant_styles = NONE) // EffigyEdit Change
 	SHOULD_CALL_PARENT(TRUE)
 	RETURN_TYPE(/list)
 
@@ -602,27 +602,44 @@
 
 /obj/item/bodypart/head/generate_icon_key()
 	. = ..()
-	. += "-[facial_hairstyle]"
-	. += "-[facial_hair_color]"
-	if(facial_hair_gradient_style)
-		. += "-[facial_hair_gradient_style]"
-		if(hair_gradient_color)
-			. += "-[facial_hair_gradient_color]"
+	if(lip_style)
+		. += "-[lip_style]"
+		. += "-[lip_color]"
+
 	if(facial_hair_hidden)
 		. += "-FACIAL_HAIR_HIDDEN"
+	else
+		. += "-[facial_hairstyle]"
+		. += "-[override_hair_color || fixed_hair_color || facial_hair_color]"
+		. += "-[facial_hair_alpha]"
+		if(facial_hair_gradient_style)
+			. += "-[facial_hair_gradient_style]"
+			. += "-[facial_hair_gradient_color]"
+
+	if(show_missing_eyes)
+		. += "-SHOW_MISSING_EYES"
 	if(show_debrained)
 		. += "-SHOW_DEBRAINED"
 		return .
 
-	. += "-[hair_style]"
-	. += "-[fixed_hair_color || override_hair_color || hair_color]"
-	if(hair_gradient_style)
-		. += "-[hair_gradient_style]"
-		if(hair_gradient_color)
-			. += "-[hair_gradient_color]"
 	if(hair_hidden)
 		. += "-HAIR_HIDDEN"
+	else
+		. += "-[hair_style]"
+		. += "-[override_hair_color || fixed_hair_color || hair_color]"
+		. += "-[hair_alpha]"
+		if(hair_gradient_style)
+			. += "-[hair_gradient_style]"
+			. += "-[hair_gradient_color]"
 
+	return .
+
+/obj/item/bodypart/head/generate_husk_key()
+	. = ..()
+	if(show_missing_eyes)
+		. += "-SHOW_MISSING_EYES"
+	if(show_debrained)
+		. += "-SHOW_DEBRAINED"
 	return .
 
 GLOBAL_LIST_EMPTY(masked_leg_icons_cache)

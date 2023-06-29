@@ -85,13 +85,13 @@
 		return FALSE
 	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE) & COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE)
 		return FALSE
-	// EFFIGY EDIT ADD START - Pixel Shifting
+	// EffigyEdit Add -  - Pixel Shifting
 	if(mob.shifting)
 		mob.pixel_shift(direct)
 		return FALSE
 	else if(mob.is_shifted)
 		mob.unpixel_shift()
-	// EFFIGY EDIT ADD END - Pixel Shifting
+	// EffigyEdit Add End - Pixel Shifting
 
 	var/mob/living/L = mob //Already checked for isliving earlier
 	if(L.incorporeal_move && !is_secret_level(mob.z)) //Move though walls
@@ -352,7 +352,7 @@
 			continue
 		return rebound
 
-/mob/has_gravity()
+/mob/has_gravity(turf/gravity_turf)
 	return mob_negates_gravity() || ..()
 
 /**
