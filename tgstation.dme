@@ -5587,6 +5587,7 @@
 #include "packages\broadcast_team\code\game\objects\items\devices\radio\intercom.dm"
 #include "packages\broadcast_team\code\game\objects\structures\construction_console\construction_console.dm"
 #include "packages\broadcast_team\code\game\objects\structures\construction_console\construction_console_broadcast.dm"
+#include "packages\broadcast_team\code\modules\jobs\job_types\barista.dm"
 #include "packages\broadcast_team\code\modules\jobs\job_types\broadcast_team.dm"
 #include "packages\broadcast_team\code\modules\mapping\access_helpers.dm"
 #include "packages\broadcast_team\code\modules\modular_computers\computers\item\role_tablet_presets.dm"
