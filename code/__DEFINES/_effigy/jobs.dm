@@ -15,5 +15,7 @@
 
 // Service
 #define JOB_BROADCAST_TEAM "Broadcast Team"
+#define JOB_BARISTA "Barista"
 
 #define JOB_DISPLAY_ORDER_BROADCAST_TEAM 37 // Keep un-conflicting with any base jobs.dm display order defines!!
+#define JOB_DISPLAY_ORDER_BARISTA 38
